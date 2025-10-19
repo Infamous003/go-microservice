@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Infamous003/go-microservice/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -13,9 +14,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger) // Adding a logger middleware
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("What's up!"))
-	})
+	ph := handlers.NewProduct()
+	r.Get("/products", ph.GetProducts)
 
 	s := &http.Server{
 		Addr:         ":9090",
