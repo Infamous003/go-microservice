@@ -16,6 +16,7 @@ func main() {
 
 	ph := handlers.NewProduct()
 	r.Get("/products", ph.GetProducts)
+	r.Get("/products/{id}", ph.GetProductByID)
 
 	s := &http.Server{
 		Addr:         ":9090",

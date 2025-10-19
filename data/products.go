@@ -1,6 +1,13 @@
 package data
 
-import "time"
+import (
+	"errors"
+	"time"
+)
+
+var (
+	ErrProductNotFound = errors.New("Product not found")
+)
 
 type Product struct {
 	ID          int
@@ -17,6 +24,15 @@ type Products []*Product
 
 func GetProducts() Products {
 	return productsList
+}
+
+func GetProductByID(id int) (*Product, error) {
+	for _, p := range productsList {
+		if p.ID == id {
+			return p, nil
+		}
+	}
+	return nil, ErrProductNotFound
 }
 
 var productsList = Products{
